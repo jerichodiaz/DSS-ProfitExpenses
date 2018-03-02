@@ -1,17 +1,21 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * Created by Diaz, Jericho Hans
  * On 2/28/2018
  */
-public class Controller {
+public class Controller implements Initializable{
     @FXML private ProgressIndicator piResource;
     @FXML
     private RadioButton rResource, rHR, rOverhead, rMaterials, rMaterialCost,
@@ -27,17 +31,9 @@ public class Controller {
     private ObservableList<PieChart.Data> hrData = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> overheadData = FXCollections.observableArrayList();
 
+
+
     private void inputChartData() {
-
-        chart.setLabelsVisible(false);
-        chart.setLegendVisible(true);
-        chart.setLegendSide(Side.RIGHT);
-        chartHR.setLabelLineLength(5);
-        chartOverhead.setLabelLineLength(5);
-        chartHR.setLegendVisible(false);
-        chartOverhead.setLegendVisible(false);
-
-
 
         chart.setData(data);
         data.clear();
@@ -59,14 +55,84 @@ public class Controller {
                 new PieChart.Data("Advertising", Double.parseDouble(txtAdvertising.getText())),
                 new PieChart.Data("Maintenance", Double.parseDouble(txtMaintenance.getText()))
         );
-    }
 
-    protected void calculate() {
-        inputChartData();
         double x = Double.parseDouble(txtResource.getText());
         double y = Double.parseDouble(txtHR.getText());
         double z = Double.parseDouble(txtOverhead.getText());
         double a = x+y+z;
         piResource.setProgress(x/a);
+    }
+
+    protected void calculate() {
+        inputTextData();
+        inputChartData();
+    }
+
+
+    private void initCharts(){
+        chart.setLabelsVisible(false);
+        chart.setLegendVisible(true);
+        chart.setLegendSide(Side.RIGHT);
+        chartHR.setLabelLineLength(5);
+        chartOverhead.setLabelLineLength(5);
+        chartHR.setLegendVisible(false);
+        chartOverhead.setLegendVisible(false);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initCharts();
+    }
+
+    public void inputTextData(){
+        double resource = Double.parseDouble(txtResource.getText()),
+        hr = Double.parseDouble(txtHR.getText()),
+        overhead = Double.parseDouble(txtOverhead.getText()),
+        materials = Double.parseDouble(txtMaterials.getText()),
+        materialCost = Double.parseDouble(txtMaterialCost.getText()),
+        totalCost = Double.parseDouble(txtTotalCost.getText()),
+        employeeCount = Double.parseDouble(txtEmployeeCount.getText()),
+        salary = Double.parseDouble(txtSalary.getText()),
+        operationalExpense = Double.parseDouble(txtOperationExpense.getText()),
+        quota = Double.parseDouble(txtQuota.getText()),
+        rent = Double.parseDouble(txtRent.getText()),
+        advertising = Double.parseDouble(txtAdvertising.getText()),
+        maintenance = Double.parseDouble(txtMaintenance.getText()),
+        expense = Double.parseDouble(txtExpense.getText()),
+        products = Double.parseDouble(txtProducts.getText()),
+        price = Double.parseDouble(txtPrice.getText()),
+        revenue = Double.parseDouble(txtRevenue.getText());
+        if(rResource.isSelected())
+            txtResource.setText(Calculate.resources(totalCost)+"");
+        else if(rHR.isSelected())
+            txtHR.setText(Calculate.hrManagement(employeeCount, salary, operationalExpense)+"");
+        else if(rTotalCost.isSelected())
+            txtTotalCost.setText(Calculate.totalCost(materials, materialCost)+"");
+        else if(rOverhead.isSelected())
+            txtOverhead.setText(Calculate.overheadBills(rent, advertising, maintenance)+"");
+        else if(rExpense.isSelected())
+            txtExpense.setText(Calculate.expenses(resource, hr, overhead)+"");
+        else if(rRevenue.isSelected())
+            txtRevenue.setText(Calculate.revenue(expense, products, price)+"");
+        else if(rProducts.isSelected())
+            txtProducts.setText(Calculate.totalProducts(expense, price, revenue)+"");
+        else if(rPrice.isSelected())
+            txtPrice.setText(Calculate.price(expense, products, revenue)+"");
+        else if(rMaterials.isSelected())
+            txtMaterials.setText(Calculate.materialCount(materialCost, totalCost)+"");
+        else if(rMaterialCost.isSelected())
+            txtMaterialCost.setText(Calculate.materialCost(materials, totalCost)+"");
+        else if(rEmployeeCount.isSelected())
+            txtEmployeeCount.setText(Calculate.employeeCount(hr, salary, operationalExpense)+"");
+        else if(rSalary.isSelected())
+            txtSalary.setText(Calculate.salary(hr, employeeCount, operationalExpense)+"");
+        else if(rOperationExpense.isSelected())
+            txtOperationExpense.setText(Calculate.operationalExpenses(hr, employeeCount, salary)+"");
+        else if(rRent.isSelected())
+            txtRent.setText(Calculate.rent(overhead, advertising, maintenance)+"");
+        else if(rAdvertising.isSelected())
+            txtAdvertising.setText(Calculate.advertising(overhead, rent, maintenance)+"");
+        else if(rMaintenance.isSelected())
+            txtMaintenance.setText(Calculate.maintenance(overhead, rent, advertising)+"");
     }
 }

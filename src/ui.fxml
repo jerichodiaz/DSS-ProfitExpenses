@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -16,45 +17,48 @@
           <AnchorPane minWidth="330.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <ProgressIndicator fx:id="piResource" layoutX="149.0" layoutY="81.0" prefHeight="175.0" prefWidth="326.0" progress="0.0" stylesheets="@css.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
-                  <JFXRadioButton fx:id="rMaterials" layoutY="193.0" AnchorPane.topAnchor="240.0" />
-                  <JFXRadioButton fx:id="rMaterialCost" layoutY="263.0" AnchorPane.topAnchor="300.0" />
-                  <JFXRadioButton fx:id="rTotalCost" layoutX="1.0" layoutY="336.0" AnchorPane.topAnchor="365.0" />
+                  <JFXRadioButton fx:id="rMaterials" layoutY="193.0" AnchorPane.topAnchor="240.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="a" />
+                     </toggleGroup></JFXRadioButton>
+                  <JFXRadioButton fx:id="rMaterialCost" layoutY="263.0" toggleGroup="$a" AnchorPane.topAnchor="300.0" />
+                  <JFXRadioButton fx:id="rTotalCost" layoutX="1.0" layoutY="336.0" toggleGroup="$a" AnchorPane.topAnchor="365.0" />
                   <JFXTextField fx:id="txtResource" layoutX="96.0" layoutY="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
                   <JFXTextField fx:id="txtMaterials" layoutX="184.0" layoutY="186.0" promptText="# of Materials" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0" />
                   <JFXTextField fx:id="txtMaterialCost" layoutX="184.0" layoutY="255.0" promptText="Cost of Materials" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0" />
                   <JFXTextField fx:id="txtTotalCost" layoutX="183.0" layoutY="329.0" promptText="Total Cost" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="365.0" />
                   <Label layoutX="1.0" layoutY="6.0" text="Resources" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <JFXRadioButton fx:id="rResource" layoutX="26.0" layoutY="104.0" />
+                  <JFXRadioButton fx:id="rResource" layoutX="1.0" layoutY="163.0" toggleGroup="$a" />
                </children>
             </AnchorPane>
           <AnchorPane minWidth="330.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <PieChart fx:id="chartHR" layoutX="7.0" layoutY="8.0" prefHeight="227.0" prefWidth="336.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <JFXTextField fx:id="txtHR" layoutX="96.0" layoutY="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
-                  <JFXRadioButton fx:id="rEmployeeCount" layoutX="13.0" layoutY="188.0" AnchorPane.topAnchor="236.0" />
-                  <JFXRadioButton fx:id="rSalary" layoutX="13.0" layoutY="245.0" AnchorPane.topAnchor="291.0" />
-                  <JFXRadioButton fx:id="rOperationExpense" layoutX="13.0" layoutY="301.0" AnchorPane.topAnchor="347.0" />
-                  <JFXRadioButton fx:id="rQuota" layoutX="13.0" layoutY="358.0" AnchorPane.topAnchor="405.0" />
+                  <JFXRadioButton fx:id="rEmployeeCount" layoutX="13.0" layoutY="188.0" toggleGroup="$a" AnchorPane.topAnchor="236.0" />
+                  <JFXRadioButton fx:id="rSalary" layoutX="13.0" layoutY="245.0" toggleGroup="$a" AnchorPane.topAnchor="291.0" />
+                  <JFXRadioButton fx:id="rOperationExpense" layoutX="13.0" layoutY="301.0" toggleGroup="$a" AnchorPane.topAnchor="347.0" />
+                  <JFXRadioButton fx:id="rQuota" layoutX="13.0" layoutY="358.0" toggleGroup="$a" AnchorPane.topAnchor="405.0" />
                   <JFXTextField fx:id="txtEmployeeCount" layoutX="50.0" layoutY="184.0" promptText="# of Employees" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="236.0" />
                   <JFXTextField fx:id="txtSalary" layoutX="50.0" layoutY="241.0" promptText="Salary" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="291.0" />
                   <JFXTextField fx:id="txtOperationExpense" layoutX="50.0" layoutY="297.0" promptText="Operations Expenses" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="347.0" />
                   <JFXTextField fx:id="txtQuota" layoutX="50.0" layoutY="354.0" promptText="Production Quota" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="405.0" />
                   <Label layoutX="13.0" layoutY="6.0" text="HR Management" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <JFXRadioButton fx:id="rHR" layoutX="-3.0" layoutY="163.0" />
+                  <JFXRadioButton fx:id="rHR" layoutX="-3.0" layoutY="163.0" toggleGroup="$a" />
                </children>
             </AnchorPane>
             <AnchorPane minWidth="330.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <PieChart fx:id="chartOverhead" layoutX="-82.0" layoutY="-96.0" prefHeight="227.0" prefWidth="336.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <JFXTextField fx:id="txtOverhead" layoutY="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
-                  <JFXRadioButton fx:id="rRent" layoutX="5.0" layoutY="193.0" AnchorPane.topAnchor="240.0" />
-                  <JFXRadioButton fx:id="rAdvertising" layoutX="5.0" layoutY="263.0" AnchorPane.topAnchor="300.0" />
-                  <JFXRadioButton fx:id="rMaintenance" layoutX="5.0" layoutY="374.0" AnchorPane.topAnchor="365.0" />
+                  <JFXRadioButton fx:id="rRent" layoutX="5.0" layoutY="193.0" toggleGroup="$a" AnchorPane.topAnchor="240.0" />
+                  <JFXRadioButton fx:id="rAdvertising" layoutX="5.0" layoutY="263.0" toggleGroup="$a" AnchorPane.topAnchor="300.0" />
+                  <JFXRadioButton fx:id="rMaintenance" layoutX="5.0" layoutY="374.0" toggleGroup="$a" AnchorPane.topAnchor="365.0" />
                   <JFXTextField fx:id="txtRent" layoutX="45.0" layoutY="186.0" promptText="Rent" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="240.0" />
                   <JFXTextField fx:id="txtAdvertising" layoutX="45.0" layoutY="255.0" promptText="Advertising" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="300.0" />
                   <JFXTextField fx:id="txtMaintenance" layoutX="45.0" layoutY="329.0" promptText="Maintenance" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="365.0" />
                   <Label layoutY="6.0" text="Overhead Bills" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <JFXRadioButton fx:id="rOverhead" layoutX="5.0" layoutY="163.0" />
+                  <JFXRadioButton fx:id="rOverhead" layoutX="5.0" layoutY="163.0" toggleGroup="$a" />
                </children>
             </AnchorPane>
         </items>
@@ -66,10 +70,10 @@
    <right>
       <AnchorPane prefHeight="252.0" prefWidth="710.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXRadioButton fx:id="rExpense" layoutX="13.0" layoutY="28.0" />
-            <JFXRadioButton fx:id="rProducts" layoutX="13.0" layoutY="86.0" />
-            <JFXRadioButton fx:id="rPrice" layoutX="13.0" layoutY="140.0" />
-            <JFXRadioButton fx:id="rRevenue" layoutX="13.0" layoutY="197.0" />
+            <JFXRadioButton fx:id="rExpense" layoutX="13.0" layoutY="28.0" toggleGroup="$a" />
+            <JFXRadioButton fx:id="rProducts" layoutX="13.0" layoutY="86.0" toggleGroup="$a" />
+            <JFXRadioButton fx:id="rPrice" layoutX="13.0" layoutY="140.0" toggleGroup="$a" />
+            <JFXRadioButton fx:id="rRevenue" layoutX="13.0" layoutY="197.0" toggleGroup="$a" />
             <JFXTextField fx:id="txtExpense" layoutX="53.0" layoutY="24.0" promptText="Expenses" />
             <JFXTextField fx:id="txtProducts" layoutX="53.0" layoutY="82.0" promptText="Total Products" />
             <JFXTextField fx:id="txtPrice" layoutX="53.0" layoutY="136.0" promptText="Price" />
