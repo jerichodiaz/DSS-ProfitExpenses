@@ -15,8 +15,9 @@ import java.util.ResourceBundle;
  * Created by Diaz, Jericho Hans
  * On 2/28/2018
  */
-public class Controller implements Initializable{
-    @FXML private ProgressIndicator piResource;
+public class Controller implements Initializable {
+    @FXML
+    private ProgressIndicator piResource;
     @FXML
     private RadioButton rResource, rHR, rOverhead, rMaterials, rMaterialCost,
             rTotalCost, rEmployeeCount, rSalary, rOperationExpense, rQuota, rRent,
@@ -30,7 +31,6 @@ public class Controller implements Initializable{
     private ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> hrData = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> overheadData = FXCollections.observableArrayList();
-
 
 
     private void inputChartData() {
@@ -59,17 +59,18 @@ public class Controller implements Initializable{
         double x = Double.parseDouble(txtResource.getText());
         double y = Double.parseDouble(txtHR.getText());
         double z = Double.parseDouble(txtOverhead.getText());
-        double a = x+y+z;
-        piResource.setProgress(x/a);
+        double a = x + y + z;
+        piResource.setProgress(x / a);
     }
 
     protected void calculate() {
+        transformNullToZero();
         inputTextData();
         inputChartData();
     }
 
 
-    private void initCharts(){
+    private void initCharts() {
         chart.setLabelsVisible(false);
         chart.setLegendVisible(true);
         chart.setLegendSide(Side.RIGHT);
@@ -84,55 +85,84 @@ public class Controller implements Initializable{
         initCharts();
     }
 
-    public void inputTextData(){
+    private void transformNullToZero() {
+        txtResource.setText(txtResource.getText().isEmpty() ? "0" : txtResource.getText());
+        txtHR.setText(txtHR.getText().isEmpty() ? "0" : txtHR.getText());
+        txtOverhead.setText(txtOverhead.getText().isEmpty() ? "0" : txtOverhead.getText());
+        txtMaterials.setText(txtMaterials.getText().isEmpty() ? "0" : txtMaterials.getText());
+        txtMaterialCost.setText(txtMaterialCost.getText().isEmpty() ? "0" : txtMaterialCost.getText());
+        txtTotalCost.setText(txtTotalCost.getText().isEmpty() ? "0" : txtTotalCost.getText());
+        txtEmployeeCount.setText(txtEmployeeCount.getText().isEmpty() ? "0" : txtEmployeeCount.getText());
+        txtSalary.setText(txtSalary.getText().isEmpty() ? "0" : txtSalary.getText());
+        txtOperationExpense.setText(txtOperationExpense.getText().isEmpty() ? "0" : txtOperationExpense.getText());
+        txtQuota.setText(txtQuota.getText().isEmpty() ? "0" : txtQuota.getText());
+        txtRent.setText(txtRent.getText().isEmpty() ? "0" : txtRent.getText());
+        txtAdvertising.setText(txtAdvertising.getText().isEmpty() ? "0" : txtAdvertising.getText());
+        txtMaintenance.setText(txtMaintenance.getText().isEmpty() ? "0" : txtMaintenance.getText());
+        txtExpense.setText(txtExpense.getText().isEmpty() ? "0" : txtExpense.getText());
+        txtProducts.setText(txtProducts.getText().isEmpty() ? "0" : txtProducts.getText());
+        txtPrice.setText(txtPrice.getText().isEmpty() ? "0" : txtPrice.getText());
+        txtRevenue.setText(txtRevenue.getText().isEmpty() ? "0" : txtRevenue.getText());
+    }
+
+    public void inputTextData() {
         double resource = Double.parseDouble(txtResource.getText()),
-        hr = Double.parseDouble(txtHR.getText()),
-        overhead = Double.parseDouble(txtOverhead.getText()),
-        materials = Double.parseDouble(txtMaterials.getText()),
-        materialCost = Double.parseDouble(txtMaterialCost.getText()),
-        totalCost = Double.parseDouble(txtTotalCost.getText()),
-        employeeCount = Double.parseDouble(txtEmployeeCount.getText()),
-        salary = Double.parseDouble(txtSalary.getText()),
-        operationalExpense = Double.parseDouble(txtOperationExpense.getText()),
-        quota = Double.parseDouble(txtQuota.getText()),
-        rent = Double.parseDouble(txtRent.getText()),
-        advertising = Double.parseDouble(txtAdvertising.getText()),
-        maintenance = Double.parseDouble(txtMaintenance.getText()),
-        expense = Double.parseDouble(txtExpense.getText()),
-        products = Double.parseDouble(txtProducts.getText()),
-        price = Double.parseDouble(txtPrice.getText()),
-        revenue = Double.parseDouble(txtRevenue.getText());
-        if(rResource.isSelected())
-            txtResource.setText(Calculate.resources(totalCost)+"");
-        else if(rHR.isSelected())
-            txtHR.setText(Calculate.hrManagement(employeeCount, salary, operationalExpense)+"");
-        else if(rTotalCost.isSelected())
-            txtTotalCost.setText(Calculate.totalCost(materials, materialCost)+"");
-        else if(rOverhead.isSelected())
-            txtOverhead.setText(Calculate.overheadBills(rent, advertising, maintenance)+"");
-        else if(rExpense.isSelected())
-            txtExpense.setText(Calculate.expenses(resource, hr, overhead)+"");
-        else if(rRevenue.isSelected())
-            txtRevenue.setText(Calculate.revenue(expense, products, price)+"");
-        else if(rProducts.isSelected())
-            txtProducts.setText(Calculate.totalProducts(expense, price, revenue)+"");
-        else if(rPrice.isSelected())
-            txtPrice.setText(Calculate.price(expense, products, revenue)+"");
-        else if(rMaterials.isSelected())
-            txtMaterials.setText(Calculate.materialCount(materialCost, totalCost)+"");
-        else if(rMaterialCost.isSelected())
-            txtMaterialCost.setText(Calculate.materialCost(materials, totalCost)+"");
-        else if(rEmployeeCount.isSelected())
-            txtEmployeeCount.setText(Calculate.employeeCount(hr, salary, operationalExpense)+"");
-        else if(rSalary.isSelected())
-            txtSalary.setText(Calculate.salary(hr, employeeCount, operationalExpense)+"");
-        else if(rOperationExpense.isSelected())
-            txtOperationExpense.setText(Calculate.operationalExpenses(hr, employeeCount, salary)+"");
-        else if(rRent.isSelected())
-            txtRent.setText(Calculate.rent(overhead, advertising, maintenance)+"");
-        else if(rAdvertising.isSelected())
-            txtAdvertising.setText(Calculate.advertising(overhead, rent, maintenance)+"");
-        else if(rMaintenance.isSelected())
-            txtMaintenance.setText(Calculate.maintenance(overhead, rent, advertising)+"");
+                hr = Double.parseDouble(txtHR.getText()),
+                overhead = Double.parseDouble(txtOverhead.getText()),
+                materials = Double.parseDouble(txtMaterials.getText()),
+                materialCost = Double.parseDouble(txtMaterialCost.getText()),
+                totalCost = Double.parseDouble(txtTotalCost.getText()),
+                employeeCount = Double.parseDouble(txtEmployeeCount.getText()),
+                salary = Double.parseDouble(txtSalary.getText()),
+                operationalExpense = Double.parseDouble(txtOperationExpense.getText()),
+                quota = Double.parseDouble(txtQuota.getText()),
+                rent = Double.parseDouble(txtRent.getText()),
+                advertising = Double.parseDouble(txtAdvertising.getText()),
+                maintenance = Double.parseDouble(txtMaintenance.getText()),
+                expense = Double.parseDouble(txtExpense.getText()),
+                products = Double.parseDouble(txtProducts.getText()),
+                price = Double.parseDouble(txtPrice.getText()),
+                revenue = Double.parseDouble(txtRevenue.getText());
+        if (rResource.isSelected())
+            txtResource.setText(Calculate.resources(totalCost) + "");
+        else if (rHR.isSelected())
+            txtHR.setText(Calculate.hrManagement(employeeCount, salary, operationalExpense) + "");
+        else if (rTotalCost.isSelected())
+            txtTotalCost.setText(Calculate.totalCost(materials, materialCost) + "");
+        else if (rOverhead.isSelected())
+            txtOverhead.setText(Calculate.overheadBills(rent, advertising, maintenance) + "");
+        else if (rExpense.isSelected())
+            txtExpense.setText(Calculate.expenses(resource, hr, overhead) + "");
+        else if (rRevenue.isSelected())
+            txtRevenue.setText(Calculate.revenue(expense, products, price) + "");
+        else if (rProducts.isSelected())
+            txtProducts.setText(Calculate.totalProducts(expense, price, revenue) + "");
+        else if (rPrice.isSelected())
+            txtPrice.setText(Calculate.price(expense, products, revenue) + "");
+        else if (rMaterials.isSelected())
+            txtMaterials.setText(Calculate.materialCount(materialCost, totalCost) + "");
+        else if (rMaterialCost.isSelected())
+            txtMaterialCost.setText(Calculate.materialCost(materials, totalCost) + "");
+        else if (rEmployeeCount.isSelected())
+            txtEmployeeCount.setText(Calculate.employeeCount(hr, salary, operationalExpense) + "");
+        else if (rSalary.isSelected())
+            txtSalary.setText(Calculate.salary(hr, employeeCount, operationalExpense) + "");
+        else if (rOperationExpense.isSelected())
+            txtOperationExpense.setText(Calculate.operationalExpenses(hr, employeeCount, salary) + "");
+        else if (rQuota.isSelected())
+            txtQuota.setText(Calculate.productionQuota(employeeCount, products) + "");
+        else if (rRent.isSelected()) {
+            txtRent.setText(Calculate.rent(overhead, advertising, maintenance) + "");
+            if (txtRent.getText().equals("0.0"))
+                txtOverhead.setText(Calculate.overheadBills(Double.parseDouble(txtRent.getText()), advertising, maintenance) + "");
+        } else if (rAdvertising.isSelected()) {
+            txtAdvertising.setText(Calculate.advertising(overhead, rent, maintenance) + "");
+            if (txtAdvertising.getText().equals("0.0"))
+                txtOverhead.setText(Calculate.overheadBills(rent, Double.parseDouble(txtAdvertising.getText()), maintenance) + "");
+        } else if (rMaintenance.isSelected()) {
+            txtMaintenance.setText(Calculate.maintenance(overhead, rent, advertising) + "");
+            if (txtMaintenance.getText().equals("0.0"))
+                txtOverhead.setText(Calculate.overheadBills(rent, advertising, Double.parseDouble(txtMaintenance.getText())) + "");
+        }
     }
 }

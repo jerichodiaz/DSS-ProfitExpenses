@@ -32,7 +32,7 @@ public class Calculate {
     }
 
     public static double price(double expenses, double totalProducts, double revenue) {
-        return expenses * revenue / totalProducts;
+        return (expenses + revenue) / totalProducts;
     }
 
     public static double materialCount(double materialCost, double totalCost) {
@@ -48,23 +48,35 @@ public class Calculate {
     }
 
     public static double salary(double hr, double employee, double operationalExpenses) {
-        return (hr - (employee - operationalExpenses)) / employee;
+        return (hr - (employee * operationalExpenses)) / employee;
     }
 
     public static double operationalExpenses(double hr, double employee, double salary) {
-        return (hr - (employee - salary)) / employee;
+        return (hr - (employee * salary)) / employee;
     }
 
     public static double rent(double overhead, double advertising, double maintenance) {
-        return overhead - (advertising + maintenance);
+        double ans = overhead - (advertising + maintenance);
+        if (ans < 0)
+            return 0;
+        return ans;
     }
 
     public static double advertising(double overhead, double rent, double maintenance) {
-        return overhead - (rent + maintenance);
+        double ans = overhead - (rent + maintenance);
+        if (ans < 0)
+            return 0;
+        return ans;
     }
 
     public static double maintenance(double overhead, double rent, double advertising) {
-        return overhead - (rent + advertising);
+        double ans = overhead - (rent + advertising);
+        if (ans < 0)
+            return 0;
+        return ans;
+    }
+    public static double productionQuota(double employeeCount, double totalProducts){
+        return totalProducts/employeeCount;
     }
 
 }
