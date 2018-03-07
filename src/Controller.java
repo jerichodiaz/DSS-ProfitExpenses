@@ -31,6 +31,7 @@ public class Controller implements Initializable {
     private ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> hrData = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> overheadData = FXCollections.observableArrayList();
+    private boolean isForward = true;
 
 
     private void inputChartData() {
@@ -82,6 +83,16 @@ public class Controller implements Initializable {
 
     }
 
+    @FXML private void setForward(){
+        isForward = true;
+        calculate();
+    }
+    @FXML private void setBackward(){
+        isForward = false;
+        calculate();
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initCharts();
@@ -127,7 +138,7 @@ public class Controller implements Initializable {
                 revenue = Double.parseDouble(txtRevenue.getText());
         if (rResource.isSelected() || rTotalCost.isSelected()) {
             double ans = Calculate.totalCost(materials, materialCost);
-            if (txtResource.getText().equals(ans + "")) {
+            if (!isForward) {
                 txtResource.setText(Calculate.resources(expense, hr, overhead) + "");
                 txtTotalCost.setText(Calculate.resources(expense, hr, overhead) + "");
             } else {
@@ -136,19 +147,19 @@ public class Controller implements Initializable {
             }
         } else if (rHR.isSelected()) {
             double ans = Calculate.hrManagement(employeeCount, salary, operationalExpense);
-            if (txtHR.getText().equals(ans + ""))
+            if (!isForward)
                 txtHR.setText(Calculate.hrManagementAlternate(expense, resource, overhead) + "");
             else
                 txtHR.setText(ans + "");
         } else if (rOverhead.isSelected()) {
             double ans = Calculate.overheadBills(rent, advertising, maintenance);
-            if (txtOverhead.getText().equals(ans + "")) {
+            if (!isForward) {
                 txtOverhead.setText(Calculate.overheadBillsAlternate(expense, resource, hr) + "");
             } else
                 txtOverhead.setText(ans + "");
         } else if (rExpense.isSelected()) {
             double ans = Calculate.expenses(resource, hr, overhead);
-            if (txtExpense.getText().equals(ans + ""))
+            if (!isForward)
                 txtExpense.setText(Calculate.expensesAlternate(revenue, price, products) + "");
             else
                 txtExpense.setText(ans + "");

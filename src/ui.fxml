@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.chart.PieChart?>
@@ -78,6 +79,8 @@
             <JFXTextField fx:id="txtProducts" layoutX="53.0" layoutY="82.0" promptText="Total Products" />
             <JFXTextField fx:id="txtPrice" layoutX="53.0" layoutY="136.0" promptText="Price" />
             <JFXTextField fx:id="txtRevenue" layoutX="53.0" layoutY="193.0" promptText="Revenue" />
+            <JFXButton onAction="#setForward" buttonType="RAISED" layoutX="385.0" layoutY="168.0" text="Forward" />
+            <JFXButton onAction="#setBackward" buttonType="RAISED" layoutX="385.0" layoutY="202.0" text="Backward" />
          </children>
       </AnchorPane>
    </right>
