@@ -3,8 +3,8 @@
  * On 3/2/2018
  */
 public class Calculate {
-    public static double resources(double totalCost) {
-        return totalCost;
+    public static double resources(double expenses, double hr, double overhead) {
+        return expenses - (hr + overhead);
     }
 
     public static double totalCost(double materialCount, double materialCost) {
@@ -14,13 +14,22 @@ public class Calculate {
     public static double hrManagement(double employeeCount, double salary, double operationalExpenses) {
         return employeeCount * salary + employeeCount * operationalExpenses;
     }
+    public static double hrManagementAlternate(double expenses, double resources, double overhead){
+        return expenses - (resources+overhead);
+    }
 
     public static double overheadBills(double rent, double advertising, double maintenance) {
         return rent + advertising + maintenance;
     }
+    public static double overheadBillsAlternate(double expenses, double resources, double hr){
+        return expenses - (resources+hr);
+    }
 
     public static double expenses(double resources, double totalCost, double hrManagement) {
         return resources + totalCost + hrManagement;
+    }
+    public static double expensesAlternate(double revenue, double price, double products){
+        return (price*products) - revenue;
     }
 
     public static double revenue(double expenses, double totalProducts, double price) {

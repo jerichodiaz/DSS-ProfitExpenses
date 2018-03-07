@@ -50,6 +50,7 @@ public class Controller implements Initializable {
         );
         chartOverhead.setData(overheadData);
         overheadData.clear();
+
         overheadData.addAll(
                 new PieChart.Data("Rent", Double.parseDouble(txtRent.getText())),
                 new PieChart.Data("Advertising", Double.parseDouble(txtAdvertising.getText())),
@@ -78,6 +79,7 @@ public class Controller implements Initializable {
         chartOverhead.setLabelLineLength(5);
         chartHR.setLegendVisible(false);
         chartOverhead.setLegendVisible(false);
+
     }
 
     @Override
@@ -123,17 +125,34 @@ public class Controller implements Initializable {
                 products = Double.parseDouble(txtProducts.getText()),
                 price = Double.parseDouble(txtPrice.getText()),
                 revenue = Double.parseDouble(txtRevenue.getText());
-        if (rResource.isSelected())
-            txtResource.setText(Calculate.resources(totalCost) + "");
-        else if (rHR.isSelected())
-            txtHR.setText(Calculate.hrManagement(employeeCount, salary, operationalExpense) + "");
-        else if (rTotalCost.isSelected())
-            txtTotalCost.setText(Calculate.totalCost(materials, materialCost) + "");
-        else if (rOverhead.isSelected())
-            txtOverhead.setText(Calculate.overheadBills(rent, advertising, maintenance) + "");
-        else if (rExpense.isSelected())
-            txtExpense.setText(Calculate.expenses(resource, hr, overhead) + "");
-        else if (rRevenue.isSelected())
+        if (rResource.isSelected() || rTotalCost.isSelected()) {
+            double ans = Calculate.totalCost(materials, materialCost);
+            if (txtResource.getText().equals(ans + "")) {
+                txtResource.setText(Calculate.resources(expense, hr, overhead) + "");
+                txtTotalCost.setText(Calculate.resources(expense, hr, overhead) + "");
+            } else {
+                txtResource.setText(ans + "");
+                txtTotalCost.setText(ans + "");
+            }
+        } else if (rHR.isSelected()) {
+            double ans = Calculate.hrManagement(employeeCount, salary, operationalExpense);
+            if (txtHR.getText().equals(ans + ""))
+                txtHR.setText(Calculate.hrManagementAlternate(expense, resource, overhead) + "");
+            else
+                txtHR.setText(ans + "");
+        } else if (rOverhead.isSelected()) {
+            double ans = Calculate.overheadBills(rent, advertising, maintenance);
+            if (txtOverhead.getText().equals(ans + "")) {
+                txtOverhead.setText(Calculate.overheadBillsAlternate(expense, resource, hr) + "");
+            } else
+                txtOverhead.setText(ans + "");
+        } else if (rExpense.isSelected()) {
+            double ans = Calculate.expenses(resource, hr, overhead);
+            if (txtExpense.getText().equals(ans + ""))
+                txtExpense.setText(Calculate.expensesAlternate(revenue, price, products) + "");
+            else
+                txtExpense.setText(ans + "");
+        } else if (rRevenue.isSelected())
             txtRevenue.setText(Calculate.revenue(expense, products, price) + "");
         else if (rProducts.isSelected())
             txtProducts.setText(Calculate.totalProducts(expense, price, revenue) + "");
