@@ -36,27 +36,17 @@ public class Controller implements Initializable {
 
     private void inputChartData() {
 
-        chart.setData(data);
-        data.clear();
-        data.addAll(
-                new PieChart.Data("Resource", Double.parseDouble(txtResource.getText())),
-                new PieChart.Data("HR Management", Double.parseDouble(txtHR.getText())),
-                new PieChart.Data("Overhead Bills", Double.parseDouble(txtOverhead.getText()))
-        );
-        chartHR.setData(hrData);
-        hrData.clear();
-        hrData.addAll(
-                new PieChart.Data("Salary", Double.parseDouble(txtSalary.getText())),
-                new PieChart.Data("Operation", Double.parseDouble(txtOperationExpense.getText()))
-        );
-        chartOverhead.setData(overheadData);
-        overheadData.clear();
+        data.get(0).setPieValue(Double.parseDouble(txtResource.getText()));
+        data.get(1).setPieValue(Double.parseDouble(txtHR.getText()));
+        data.get(2).setPieValue(Double.parseDouble(txtOverhead.getText()));
 
-        overheadData.addAll(
-                new PieChart.Data("Rent", Double.parseDouble(txtRent.getText())),
-                new PieChart.Data("Advertising", Double.parseDouble(txtAdvertising.getText())),
-                new PieChart.Data("Maintenance", Double.parseDouble(txtMaintenance.getText()))
-        );
+        hrData.get(0).setPieValue(Double.parseDouble(txtSalary.getText()));
+        hrData.get(1).setPieValue(Double.parseDouble(txtOperationExpense.getText()));
+
+
+        overheadData.get(0).setPieValue(Double.parseDouble(txtRent.getText()));
+        overheadData.get(1).setPieValue(Double.parseDouble(txtAdvertising.getText()));
+        overheadData.get(2).setPieValue(Double.parseDouble(txtMaintenance.getText()));
 
         double x = Double.parseDouble(txtResource.getText());
         double y = Double.parseDouble(txtHR.getText());
@@ -81,13 +71,38 @@ public class Controller implements Initializable {
         chartHR.setLegendVisible(false);
         chartOverhead.setLegendVisible(false);
 
+        chart.setData(data);
+        data.clear();
+        data.addAll(
+                new PieChart.Data("Resource",0),
+                new PieChart.Data("HR Management",0),
+                new PieChart.Data("Overhead Bills", 0)
+        );
+        chartHR.setData(hrData);
+        hrData.clear();
+        hrData.addAll(
+                new PieChart.Data("Salary", 0),
+                new PieChart.Data("Operation", 0)
+        );
+        chartOverhead.setData(overheadData);
+        overheadData.clear();
+
+        overheadData.addAll(
+                new PieChart.Data("Rent", 0),
+                new PieChart.Data("Advertising", 0),
+                new PieChart.Data("Maintenance", 0)
+        );
+
     }
 
-    @FXML private void setForward(){
+    @FXML
+    private void setForward() {
         isForward = true;
         calculate();
     }
-    @FXML private void setBackward(){
+
+    @FXML
+    private void setBackward() {
         isForward = false;
         calculate();
     }
